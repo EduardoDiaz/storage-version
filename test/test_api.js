@@ -47,6 +47,13 @@ describe('#Storage API', function () {
                 done();
             });
         });
+
+        it('should return status 200 and last version', function (done) {
+            request.get(uri, function (err, res) {
+                assert.equal(200, res.statusCode);
+                done(err);
+            });
+        });
     });
 
     after(function () {
