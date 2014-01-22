@@ -4,7 +4,7 @@ var assert  = require('assert');
 var temp    = require('temp');
 var fs      = require('fs');
 
-describe('Storage API', function () {
+describe('#Storage API', function () {
     var uri = 'http://127.0.0.1:9090/eduardiaz/test';
 
     before(function () {
