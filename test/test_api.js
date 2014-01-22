@@ -4,6 +4,13 @@ var assert  = require('assert');
 var temp    = require('temp');
 var fs      = require('fs');
 
+
+/* init server */
+var http = require('http');
+var Storage = require('..');
+var storage = Storage({ storage: '/tmp/storage' });
+http.createServer(storage.handle).listen(9090);
+
 describe('#Storage API', function () {
     var uri = 'http://127.0.0.1:9090/eduardiaz/test';
 
