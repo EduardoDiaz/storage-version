@@ -1,4 +1,5 @@
 var fs     = require('fs');
+var url    = require('url');
 var http   = require('http');
 var join   = require('path').join;
 var mkdirp = require('mkdirp');
@@ -10,6 +11,10 @@ var storage = '/tmp/storage';
 var app = Router();
 
 app.addRoute('/:parent/:name', {
+    'GET': function (req, res) {
+        var filepath = join(storage, url.parse(req.url).pathname);
+        fs.createReadStream(filepath).pipe(res);
+    },
     'POST': function (req, res, opts) {
         var directory = join(storage, opts.parent);
         mkdirp.sync(directory);
@@ -25,5 +30,5 @@ app.addRoute('/:parent/:name', {
 
 var server = http.createServer(app);
 server.listen(9090, function () {
-    console.log("web service server listening on port 9090");
+    console.log("web storage server listening on port 9090");
 });
