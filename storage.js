@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var fs     = require('fs');
 var url    = require('url');
 var http   = require('http');
@@ -7,13 +8,29 @@ var Router = require('routes-router');
 
 var storage = '/tmp/storage';
 
+function sendError(res, status, msg) {
+    res.statusCode = status;
+    res.end(msg);
+}
+
 
 var app = Router();
 
 app.addRoute('/:parent/:name', {
     'GET': function (req, res) {
         var filepath = join(storage, url.parse(req.url).pathname);
-        fs.createReadStream(filepath).pipe(res);
+        fs.stat(filepath, function (err, file) {
+            if (err) {
+                if (err.code === 'ENOENT') {
+                    sendError(res, 404, 'Not Found');
+                    return;
+                }
+                sendError(res, 500, 'Internal Server Error');
+                return;
+            }
+
+            fs.createReadStream(filepath).pipe(res);
+        });
     },
     'POST': function (req, res, opts) {
         var directory = join(storage, opts.parent);
