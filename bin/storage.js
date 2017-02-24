@@ -4,7 +4,7 @@ var Storage  = require('..');
 var minimist = require('minimist');
 var argv     = minimist(process.argv.slice(2), {
     default: {
-        port    : 9090,
+        port    : 8000,
         storage : '/tmp/storage'
     }
 });
