@@ -1,4 +1,4 @@
-FROM node:6.9.10
+FROM node:6.9.5
 
 RUN mkdir -p /usr/src/app/server
 
