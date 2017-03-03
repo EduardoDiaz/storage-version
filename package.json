@@ -21,6 +21,7 @@
     "on-finished": "^2.3.0",
     "routes-router": "~1.5.4",
     "semver": "~2.2.1",
+    "send-data": "^8.0.0",
     "version-incrementer": "~0.1.1"
   }
 }
